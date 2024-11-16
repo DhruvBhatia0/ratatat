@@ -54,3 +54,12 @@ Arduino can receive and parse JSON messages using the ArduinoJson library:
 
 flask-mqtt/
 ├── app.py          
+
+## Deployment
+
+Deploy to [fly.io](https://fly.io/):
+
+```
+fly launch
+fly deploy
+```

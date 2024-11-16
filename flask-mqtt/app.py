@@ -1,6 +1,7 @@
 from flask import Flask, render_template
 from flask_mqtt import Mqtt
 import logging
+import json
 
 app = Flask(__name__)
 
@@ -52,6 +53,11 @@ def handle_message(client, userdata, message):
     print(f"got message on {topic}: {payload}")
     
     if topic == 'rat/sensors/proximity':
-        mqtt.publish('rat/commands', 'dance')
+        command = {
+            "action": "dance",
+            "speed": 100,
+            "duration": 1000
+        }
+        mqtt.publish('rat/commands', json.dumps(command))
 
    
