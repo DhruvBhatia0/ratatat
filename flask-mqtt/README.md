@@ -63,3 +63,44 @@ Deploy to [fly.io](https://fly.io/):
 fly launch
 fly deploy
 ```
+
+## API Endpoints
+
+### Rat Control
+- `POST /rat/hands`
+  ```json
+  {
+    "right": true,
+    "left": false
+  }
+  ```
+
+- `POST /rat/speak`
+  ```json
+  {
+    "text": "Hello world"
+  }
+  ```
+
+- `POST /rat/glow`
+  ```json
+  {
+    "brightness": 100,
+    "color": "red"
+  }
+  ```
+
+### Audio Processing
+- `POST /rat/audio`
+  - Send audio file as multipart/form-data
+  - Returns transcription and AI response
+  - Automatically triggers rat to speak response
+
+## Audio Stream Processing
+
+1. Arduino continuously monitors audio levels
+2. When level > threshold, sends level to `rat/sensors/audio_level`
+3. Server triggers audio streaming if threshold exceeded
+4. Audio processed through Whisper API for transcription
+5. Transcription sent to AI for response
+6. Response sent back to rat for TTS
